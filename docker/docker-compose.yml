@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  flask_app:
+    container_name: depth_estimation_container
+    image: sauroni/flask_live_app:1.0.0
+    build: 
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "4000:4000"
+volumes:
+  pgdata: {}
