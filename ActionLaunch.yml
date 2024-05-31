@@ -1,0 +1,27 @@
+name: Start tests and deploy
+on:
+  push:
+jobs:
+  load:
+    runs-on: windows-latest
+    steps:    
+    - name: Checkout       
+      uses: actions/checkout@v4.1.6
+    - name: Dependencies
+      run:  pip install -r src/requirements.txt 
+    - name: GetModel 
+      run:  python ./src/getmodel.py
+    - name: ActivateFlask
+      run:  python src/app.py
+  test:
+    runs-on: windows-latest
+    needs:  load
+    steps:    
+    - name: Checkout       
+      uses: actions/checkout@v4.1.6
+    - name: Dependencies
+      run:  pip install -r src/requirements.txt 
+    - name: GetModel 
+      run:  python ./src/getmodel.py
+    - name: RunTest
+      run:  python ./src/test_getmodel.py
